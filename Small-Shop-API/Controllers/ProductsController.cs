@@ -1,6 +1,8 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Shopify_DB_WriterAPI.Products;
 using Small_Shop_API.Models;
 using Small_Shop_API.Products;
 using Small_Shop_API.Services;
@@ -38,18 +40,18 @@ namespace Small_Shop_API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, product);
         }
 
+        //// POST api/products
+        //[Route, HttpPost]
+        //public HttpResponseMessage Post(Product product)
+        //{
+        //    var repo = new ProductsRepository();
+        //    var results = repo.Post(product);
+
+        //    return results == 1 ? Request.CreateResponse(HttpStatusCode.Created) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "A product with that id already exists");
+        //}
+
         // POST api/products
         [Route, HttpPost]
-        public HttpResponseMessage Post(Product product)
-        {
-            var repo = new ProductsRepository();
-            var results = repo.Post(product);
-
-            return results == 1 ? Request.CreateResponse(HttpStatusCode.Created) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "A product with that id already exists");
-        }
-
-        // POST api/products/list
-        [Route("list"), HttpPost]
         public HttpResponseMessage Post(object products)
         {
             var parse = new ProductParser();
@@ -59,11 +61,11 @@ namespace Small_Shop_API.Controllers
             foreach (Product product in prods)
             {
                 var repo = new ProductsRepository();
-                repo.Post(product);
+                var result = repo.Post(product);
                 postCount += 1;
             }
 
-            return prods.Count == postCount ? Request.CreateResponse(HttpStatusCode.Created) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not process your order, try again later...");
+            return prods.Count == postCount ? Request.CreateResponse(HttpStatusCode.Created) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not save product, try again later...");
         }
 
         // PUT api/products/1234567890123

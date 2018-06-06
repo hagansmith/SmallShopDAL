@@ -7,26 +7,25 @@ using Small_Shop_API.Services;
 
 namespace Small_Shop_API.Controllers
 {
-    [RoutePrefix("api/lineItems")]
+    [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
-        // GET api/LineItems
+        // GET api/orders
         [Route, HttpGet]
         public HttpResponseMessage GetOrderLineItems()
         {
-            var items = new OrdersRepository();
-            var results = items.Get();
+            var orders = new OrdersRepository();
+            var results = orders.Get();
             return Request.CreateResponse(HttpStatusCode.OK, results);
         }
 
-        // POST api/LineItems
+        // POST api/order
         [Route, HttpPost]
         public HttpResponseMessage PostOrderLineItems(Order order)
         {
             var repo = new OrdersRepository();
             var result =  repo.Post(order);
-
-            return result == 1 ? Request.CreateResponse(HttpStatusCode.Created) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not process your order, try again later...");
+            return result == 1 ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not save order");
         }
     }
 }

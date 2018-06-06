@@ -42,10 +42,10 @@ namespace Small_Shop_API.Models
         public string Option1 { get; set; }
 
         [JsonProperty("option2")]
-        public object Option2 { get; set; }
+        public string Option2 { get; set; }
 
         [JsonProperty("option3")]
-        public object Option3 { get; set; }
+        public string Option3 { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
@@ -60,22 +60,22 @@ namespace Small_Shop_API.Models
         public string Barcode { get; set; }
 
         [JsonProperty("grams")]
-        public long Grams { get; set; }
+        public int Grams { get; set; }
 
         [JsonProperty("image_id")]
-        public int ImageId { get; set; }
+        public long? ImageId { get; set; }
 
         [JsonProperty("inventory_quantity")]
         public int InventoryQuantity { get; set; }
 
         [JsonProperty("weight")]
-        public int Weight { get; set; }
+        public float Weight { get; set; }
 
         [JsonProperty("weight_unit")]
         public string WeightUnit { get; set; }
 
         [JsonProperty("inventory_item_id")]
-        public string InventoryItemId { get; set; }
+        public long InventoryItemId { get; set; }
 
         [JsonProperty("old_inventory_quantity")]
         public int OldInventoryQuantity { get; set; }

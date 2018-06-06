@@ -11,40 +11,25 @@ namespace Small_Shop_API.Services
 {
     public class OrdersRepository
     {
-        readonly string _connectionString =
-            ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-
-        public List<LineItem> Get()
+        public IQueryable<Order> Get()
         {
-            using (var db = new SqlConnection(_connectionString))
-            {
-                db.Open();
-                var lineItems =
-                    db.Query<LineItem>(@"SELECT 
-                                           [id]
-                                          ,[variant_id]
-                                          ,[title]
-                                          ,[quantity]
-                                          ,[price]
-                                          ,[sku]
-                                          ,[variant_title]
-                                          ,[vendor]
-                                          ,[fulfillment_service]
-                                          ,[product_id]
-                                          ,[requires_shipping]
-                                          ,[taxable]
-                                          ,[gift_card]
-                                          ,[name]
-                                          ,[variant_inventory_management]
-                                    FROM [dbo].[LineItem]");
-                return lineItems.ToList();
-            }
+            var db = new ApplicationDbContext();
+            return db.Set<Order>();
         }
 
         public int Post(Order order)
         {
             var db = new ApplicationDbContext();
             db.Orders.Add(order);
+            foreach (LineItem item in order.LineItems)
+            {
+                var variant = db.Variants.SingleOrDefault(v => v.Id == item.VariantId);
+                if (variant != null)
+                {
+                    variant.OldInventoryQuantity = variant.InventoryQuantity;
+                    variant.InventoryQuantity -= item.Quantity;
+                }
+            }
             return db.SaveChanges();
         }
     }

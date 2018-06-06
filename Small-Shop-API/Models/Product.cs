@@ -33,7 +33,7 @@ namespace Small_Shop_API.Models
         public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("published_at")]
-        public DateTime PublishedAt { get; set; }
+        public DateTime? PublishedAt { get; set; }
 
         [JsonProperty("template_suffix")]
         public string TemplateSuffix { get; set; }
@@ -54,18 +54,6 @@ namespace Small_Shop_API.Models
         public List<Image> Images { get; set; }
 
         [JsonProperty("image")]
-        public string Image { get; set; }
-    }
-
-    internal static class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters = {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
+        public Image Image { get; set; }
     }
 }

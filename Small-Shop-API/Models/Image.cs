@@ -36,6 +36,6 @@ namespace Small_Shop_API.Models
         public string Src { get; set; }
 
         [JsonProperty("variant_ids")]
-        public List<long> VariantIds { get; set; }
+        public List<object> VariantIds { get; set; }
     }
 }

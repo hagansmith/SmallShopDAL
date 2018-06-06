@@ -14,7 +14,7 @@ namespace Small_Shop_API.Models
         public long Id { get; set; }
 
         [JsonProperty("variant_id")]
-        public string VariantId { get; set; }
+        public long VariantId { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }

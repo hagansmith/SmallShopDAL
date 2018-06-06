@@ -15,7 +15,7 @@ namespace Small_Shop_API.Dto
         [Required]
         public long Id { get; set; }
 
-        public string Variant_id { get; set; }
+        public long Variant_id { get; set; }
 
         [Required, MaxLength(50, ErrorMessage = "The Title cannon be larger than 50 characters.")]
         public string Title { get; set; }
