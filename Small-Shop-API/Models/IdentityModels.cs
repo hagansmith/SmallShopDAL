@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -24,10 +26,26 @@ namespace Small_Shop_API.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.Log = q => Debug.WriteLine(q);
+            base.OnModelCreating(modelBuilder);
+        }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<LineItem> LineItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ShippingLine> ShippingLines { get; set; }
+        public DbSet<Variant> Variants { get; set; }
     }
 }
