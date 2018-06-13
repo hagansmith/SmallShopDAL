@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -9,6 +10,7 @@ namespace Small_Shop_API.Models
     public partial class Variant
     {
         [JsonProperty("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
         [JsonProperty("product_id")]
@@ -79,6 +81,12 @@ namespace Small_Shop_API.Models
 
         [JsonProperty("old_inventory_quantity")]
         public int OldInventoryQuantity { get; set; }
+
+        [JsonProperty("minumum_stock")]
+        public int MinimumStock { get; set; }
+
+        [JsonProperty("allocated_stock")]
+        public int AllocatedStock { get; set; }
 
         [JsonProperty("requires_shipping")]
         public bool RequiresShipping { get; set; }

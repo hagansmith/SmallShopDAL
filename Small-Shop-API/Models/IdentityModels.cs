@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Small_Shop_API.Dto;
 
 namespace Small_Shop_API.Models
 {
@@ -47,5 +48,6 @@ namespace Small_Shop_API.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<ShippingLine> ShippingLines { get; set; }
         public DbSet<Variant> Variants { get; set; }
+        public DbSet<Reorder> Reorders { get; set; }
     }
 }

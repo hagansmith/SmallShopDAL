@@ -9,6 +9,7 @@ namespace Small_Shop_API.Controllers
     public class OnOrderController : ApiController
     {
         // GET api/onOrder
+        [Authorize]
         [Route, HttpGet]
         public HttpResponseMessage Get()
         {
@@ -18,6 +19,7 @@ namespace Small_Shop_API.Controllers
         }
 
         // POST api/onOrder/1234567890123/500
+        [Authorize]
         [Route("{sku}/{count}"), HttpPost]
         public HttpResponseMessage OnOrderUpdater(string sku, int count)
         {
@@ -26,6 +28,8 @@ namespace Small_Shop_API.Controllers
             return results == 1 ? Request.CreateResponse(HttpStatusCode.Created) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to process request");
         }
 
+        // PATCH api/onOrder/1234567890123/250
+        [Authorize]
         [Route("{id}/{count}"), HttpPatch]
         public HttpResponseMessage RecieveInventory(int id, int count)
         {

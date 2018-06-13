@@ -261,6 +261,22 @@
     <Compile Include="Migrations\201806061924189_productUpdate2.Designer.cs">
       <DependentUpon>201806061924189_productUpdate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806091522306_addVariantPropertiesForStock.cs" />
+    <Compile Include="Migrations\201806091522306_addVariantPropertiesForStock.Designer.cs">
+      <DependentUpon>201806091522306_addVariantPropertiesForStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806091549007_setProductSpecificationToFalse.cs" />
+    <Compile Include="Migrations\201806091549007_setProductSpecificationToFalse.Designer.cs">
+      <DependentUpon>201806091549007_setProductSpecificationToFalse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806091849249_addFirstUser.cs" />
+    <Compile Include="Migrations\201806091849249_addFirstUser.Designer.cs">
+      <DependentUpon>201806091849249_addFirstUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806130011541_addReorder.cs" />
+    <Compile Include="Migrations\201806130011541_addReorder.Designer.cs">
+      <DependentUpon>201806130011541_addReorder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -272,6 +288,7 @@
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Reorder.cs" />
     <Compile Include="Models\ShippingLine.cs" />
     <Compile Include="Models\Variant.cs" />
     <Compile Include="Products\GetOnOrder.cs" />
@@ -371,6 +388,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806061924189_productUpdate2.resx">
       <DependentUpon>201806061924189_productUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806091522306_addVariantPropertiesForStock.resx">
+      <DependentUpon>201806091522306_addVariantPropertiesForStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806091549007_setProductSpecificationToFalse.resx">
+      <DependentUpon>201806091549007_setProductSpecificationToFalse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806091849249_addFirstUser.resx">
+      <DependentUpon>201806091849249_addFirstUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806130011541_addReorder.resx">
+      <DependentUpon>201806130011541_addReorder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

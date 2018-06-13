@@ -13,6 +13,7 @@ namespace Small_Shop_API.Controllers
     public class ProductsController : ApiController
     {
         // GET api/products/variants
+        [Authorize]
         [Route("variants"), HttpGet]
         public HttpResponseMessage GetProducts()
         {
@@ -22,6 +23,7 @@ namespace Small_Shop_API.Controllers
         }
 
         // GET api/products/
+        [Authorize]
         [Route, HttpGet]
         public HttpResponseMessage Get()
         {
@@ -31,6 +33,7 @@ namespace Small_Shop_API.Controllers
         }
 
         // GET api/products/1234567890123
+        [Authorize]
         [Route("{id}"), HttpGet]
         public HttpResponseMessage Get(string id)
         {
@@ -39,16 +42,6 @@ namespace Small_Shop_API.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, product);
         }
-
-        //// POST api/products
-        //[Route, HttpPost]
-        //public HttpResponseMessage Post(Product product)
-        //{
-        //    var repo = new ProductsRepository();
-        //    var results = repo.Post(product);
-
-        //    return results == 1 ? Request.CreateResponse(HttpStatusCode.Created) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "A product with that id already exists");
-        //}
 
         // POST api/products
         [Route, HttpPost]
@@ -69,6 +62,7 @@ namespace Small_Shop_API.Controllers
         }
 
         // PUT api/products/1234567890123
+        [Authorize]
         [Route("{id}"), HttpPut]
         public HttpResponseMessage Put(Variant productVariant)
         {
@@ -79,6 +73,7 @@ namespace Small_Shop_API.Controllers
         }
 
         // PATCH api/products/update
+        [Authorize]
         [Route("update"), HttpPut]
         public HttpResponseMessage Patch(Variant details)
         {
@@ -88,6 +83,7 @@ namespace Small_Shop_API.Controllers
         }
 
         // Delete api/products/id
+        [Authorize]
         [Route("{id}"), HttpDelete]
         public HttpResponseMessage Delete(long id)
         {

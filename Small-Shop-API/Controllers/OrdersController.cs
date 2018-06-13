@@ -11,6 +11,7 @@ namespace Small_Shop_API.Controllers
     public class OrdersController : ApiController
     {
         // GET api/orders
+        [Authorize]
         [Route, HttpGet]
         public HttpResponseMessage GetOrderLineItems()
         {
@@ -21,11 +22,11 @@ namespace Small_Shop_API.Controllers
 
         // POST api/order
         [Route, HttpPost]
-        public HttpResponseMessage PostOrderLineItems(Order order)
+        public HttpResponseMessage PostOrder(Order order)
         {
             var repo = new OrdersRepository();
             var result =  repo.Post(order);
-            return result == 1 ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not save order");
+            return result == 1 ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not save order(s)");
         }
     }
 }

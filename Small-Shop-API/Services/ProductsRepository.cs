@@ -25,27 +25,27 @@ namespace Small_Shop_API.Services
             using (var db = new SqlConnection(_connectionString))
             {
                 db.Open();
-                var products = db.Query<Variant>(@"USE [Small-Shop-Dev]
-                                                        SELECT [variantId]
-                                                              ,productVariant.[productId]
-                                                              ,productVariant.title as option1
+                var products = db.Query<Variant>(@"
+                                                        SELECT variants.[Id]
+                                                              ,variants.[productId]
+                                                              ,variants.title as option1
                                                               ,minimumStock as option2
                                                               ,[price]
                                                               ,[sku]
-                                                              ,ProductVariant.[created]
-                                                              ,ProductVariant.[updated]
+                                                              ,variants.[createdAt]
+                                                              ,variants.[updatedAt]
                                                               ,[imageId]
-                                                              ,[inventory_quantity]
+                                                              ,[InventoryQuantity]
                                                               ,[weight]
                                                               ,[requiresShipping]
-                                                              ,[oldInventoryQty]
-                                                              ,[allocatedInventoryQty]
+                                                              ,[OldInventoryQuantity]
+                                                              ,[AllocatedStock]
                                                               ,[minimumStock]
-	                                                          ,Product.title as title
+	                                                          ,Products.title as title
                                                               ,i.src as image
-                                                          FROM [Small-Shop-Dev].[dbo].[ProductVariant]
-                                                          JOIN Product on ProductVariant.productId = Product.id
-                                                          JOIN ProductImage i on product.id = i.productId
+                                                          FROM [Variants]
+                                                          JOIN Products on Variants.productId = Products.id
+                                                          JOIN Images i on products.id = i.productId
                                                           ORDER BY title");
                 return products.ToList();
             }
@@ -53,15 +53,23 @@ namespace Small_Shop_API.Services
 
         public List<InventoryDto> GetLowStock()
         {
+            //var db = new ApplicationDbContext();
+            //var prods = db.Products.SqlQuery(@"SELECT p.title, i.src image, v.sku, v.inventoryQuantity, v.Id
+            //                                  FROM [dbo].[Products] p
+            //                                  JOIN dbo.Variants v on p.id = v.productId
+            //                                  JOIN dbo.Images i on p.id = i.productId
+            //                                 WHERE v.inventoryQuantity <= v.minimumStock and v.sku <> ''");
+            //return prods.ToList();
+
             using (var db = new SqlConnection(_connectionString))
             {
                 db.Open();
-                var products = db.Query<InventoryDto>(@"USE [Small-Shop-Dev]
-                                            SELECT p.title, i.src image, v.sku, v.inventory_quantity, v.variantId
-                                              FROM [dbo].[Product] p
-                                              JOIN dbo.ProductVariant v on p.id = v.productId
-                                              JOIN dbo.ProductImage i on p.id = i.productId
-                                              WHERE v.inventory_quantity <= v.minimumStock and v.sku <> ''");
+                var products = db.Query<InventoryDto>(@"
+                                            SELECT p.title, i.src image, v.sku, v.inventoryQuantity, v.Id
+                                              FROM [dbo].[Products] p
+                                              JOIN dbo.Variants v on p.id = v.productId
+                                              JOIN dbo.Images i on p.id = i.productId
+                                              WHERE v.inventoryQuantity <= v.minimumStock and v.sku <> ''");
                 return products.ToList();
             }
         }
@@ -74,10 +82,10 @@ namespace Small_Shop_API.Services
                 var product = db.QueryFirst<InventoryDto>(@"SELECT  [title] 
                                                                       ,[sku]
                                                                       ,[imageId]
-                                                                      ,[inventory_quantity]
-                                                                      ,[variantId]
-                                                                  FROM [dbo].[ProductVariant]
-                                                                  WHERE ProductVariant.sku = @id", new { id });
+                                                                      ,[inventoryQuantity]
+                                                                      ,[Id]
+                                                                  FROM [dbo].[Variants]
+                                                                  WHERE Variants.sku = @id", new { id });
                 return product;
             }
         }
@@ -102,7 +110,7 @@ namespace Small_Shop_API.Services
             {
                 var reorderDate = DateTime.Now;
                 db.Open();
-                var lines = db.Execute(@"INSERT INTO [dbo].[Reorder]
+                var lines = db.Execute(@"INSERT INTO [dbo].[Reorders]
                                                             ([variantId]
                                                             ,[quantity]
                                                             ,[orderDate])
@@ -119,12 +127,12 @@ namespace Small_Shop_API.Services
             using (var db = new SqlConnection(_connectionString))
             {
                 db.Open();
-                var products = db.Query<InventoryDto>(@"USE [Small-Shop-Dev]
-                                                        SELECT p.title, i.src image, v.sku, v.inventory_quantity remaining, v.variantId, r.quantity orderedInventoryQty, r.orderDate reorderDate, r.quantityReceived, r.id
-                                                        FROM dbo.Reorder r
-                                                        JOIN dbo.ProductVariant v on r.variantId = v.variantId
-											            JOIN dbo.Product p on v.productId = p.id
-                                                        JOIN dbo.ProductImage i on p.Id = i.productId
+                var products = db.Query<InventoryDto>(@"
+                                                        SELECT p.title, i.src image, v.sku, v.inventoryQuantity remaining, v.Id, r.quantity orderedInventoryQty, r.orderDate reorderDate, r.quantityReceived, r.id
+                                                        FROM dbo.Reorders r
+                                                        JOIN dbo.Variants v on r.variantId = v.Id
+											            JOIN dbo.Products p on v.productId = p.id
+                                                        JOIN dbo.Images i on p.Id = i.productId
                                                         WHERE r.quantityReceived < r.quantity OR r.quantityReceived IS NULL");
                 return products.ToList();
             }
