@@ -34,7 +34,7 @@ namespace Small_Shop_API.Services
                                                               ,[sku]
                                                               ,variants.[createdAt]
                                                               ,variants.[updatedAt]
-                                                              ,[imageId]
+                                                              
                                                               ,[InventoryQuantity]
                                                               ,[weight]
                                                               ,[requiresShipping]
@@ -42,7 +42,7 @@ namespace Small_Shop_API.Services
                                                               ,[AllocatedStock]
                                                               ,[minimumStock]
 	                                                          ,Products.title as title
-                                                              ,i.src as image
+                                                              ,i.src as imageId
                                                           FROM [Variants]
                                                           JOIN Products on Variants.productId = Products.id
                                                           JOIN Images i on products.id = i.productId
@@ -65,7 +65,7 @@ namespace Small_Shop_API.Services
             {
                 db.Open();
                 var products = db.Query<InventoryDto>(@"
-                                            SELECT p.title, i.src image, v.sku, v.inventoryQuantity, v.Id
+                                            SELECT p.title, i.src image, v.sku, v.inventoryQuantity, v.Id as variantId
                                               FROM [dbo].[Products] p
                                               JOIN dbo.Variants v on p.id = v.productId
                                               JOIN dbo.Images i on p.id = i.productId
@@ -177,25 +177,25 @@ namespace Small_Shop_API.Services
             using (var db = new SqlConnection(_connectionString))
             {
                 db.Open();
-                var result = db.Execute(@"UPDATE [dbo].[ProductVariant]
-                                             SET [inventory_quantity] = @inventory_quantity
+                var result = db.Execute(@"UPDATE [dbo].[Variants]
+                                             SET [inventoryQuantity] = @inventoryQuantity
                                                 ,[minimumStock] = @option2
-                                         WHERE variantId = @variantId", product);
+                                         WHERE Id = @Id", product);
 
                 return result;
             }
         }
 
-        public int Delete(long id)
+        public bool Delete(long id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                  var productRowsAffected = connection.Execute(@" DELETE FROM[dbo].[ProductVariant]
-                                                                        WHERE variantId = @id", new { id });
+                  var productRowsAffected = connection.Execute(@" DELETE FROM[dbo].[Variants]
+                                                                        WHERE Id = @id", new { id });
 
                         
-                  return productRowsAffected;
+                  return productRowsAffected == 1;
             }
             
         }

@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Web.Http;
 using Shopify_DB_WriterAPI.Products;
 using Small_Shop_API.Models;
-using Small_Shop_API.Products;
 using Small_Shop_API.Services;
 
 namespace Small_Shop_API.Controllers
@@ -90,7 +89,7 @@ namespace Small_Shop_API.Controllers
             var repo = new ProductsRepository();
             var results = repo.Delete(id);
 
-            return results == 1 ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "A product with that id already exists");
+            return results ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to delete");
         }
     }
 }

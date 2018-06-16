@@ -65,7 +65,7 @@ namespace Small_Shop_API.Models
         public int Grams { get; set; }
 
         [JsonProperty("image_id")]
-        public long? ImageId { get; set; }
+        public string ImageId { get; set; }
 
         [JsonProperty("inventory_quantity")]
         public int InventoryQuantity { get; set; }

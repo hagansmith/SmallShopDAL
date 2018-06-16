@@ -11,7 +11,7 @@ namespace Small_Shop_API.Models
         [JsonProperty("id")]
         public long Id { get; set; }
 
-        [JsonProperty("product_id")]
+        [JsonProperty("productId")]
         public long ProductId { get; set; }
 
         [JsonProperty("position")]

@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Small_Shop_API.Products;
 using Small_Shop_API.Models;
 using Small_Shop_API.Services;
 
@@ -20,7 +19,7 @@ namespace Small_Shop_API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, results);
         }
 
-        // POST api/order
+        // POST api/orders
         [Route, HttpPost]
         public HttpResponseMessage PostOrder(Order order)
         {
