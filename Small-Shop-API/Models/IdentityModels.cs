@@ -49,5 +49,6 @@ namespace Small_Shop_API.Models
         public DbSet<ShippingLine> ShippingLines { get; set; }
         public DbSet<Variant> Variants { get; set; }
         public DbSet<Reorder> Reorders { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Shopify_DB_WriterAPI.Products;
+using Small_Shop_API.Dto;
 using Small_Shop_API.Models;
 using Small_Shop_API.Services;
 
@@ -74,11 +75,13 @@ namespace Small_Shop_API.Controllers
         // PATCH api/products/update
         [Authorize]
         [Route("update"), HttpPut]
-        public HttpResponseMessage Patch(Variant details)
+        public HttpResponseMessage Patch(ProductCountDto details)
         {
             var repo = new ProductsRepository();
             var update = repo.PatchCount(details);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return update
+                ? Request.CreateResponse(HttpStatusCode.OK)
+                : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to process request");
         }
 
         // Delete api/products/id

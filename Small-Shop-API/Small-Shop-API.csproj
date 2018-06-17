@@ -210,6 +210,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Dto\InventoryDto.cs" />
     <Compile Include="Dto\LineItemDto.cs" />
+    <Compile Include="Dto\ProductCountDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,6 +254,18 @@
     <Compile Include="Migrations\201806161453270_someUpdate.Designer.cs">
       <DependentUpon>201806161453270_someUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806161647340_Location.cs" />
+    <Compile Include="Migrations\201806161647340_Location.Designer.cs">
+      <DependentUpon>201806161647340_Location.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806161659379_LocationVariantId.cs" />
+    <Compile Include="Migrations\201806161659379_LocationVariantId.Designer.cs">
+      <DependentUpon>201806161659379_LocationVariantId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806170302450_updatelocationprops.cs" />
+    <Compile Include="Migrations\201806170302450_updatelocationprops.Designer.cs">
+      <DependentUpon>201806170302450_updatelocationprops.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -262,6 +275,7 @@
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\LineItem.cs" />
     <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
@@ -338,6 +352,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806161453270_someUpdate.resx">
       <DependentUpon>201806161453270_someUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806161647340_Location.resx">
+      <DependentUpon>201806161647340_Location.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806161659379_LocationVariantId.resx">
+      <DependentUpon>201806161659379_LocationVariantId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806170302450_updatelocationprops.resx">
+      <DependentUpon>201806170302450_updatelocationprops.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

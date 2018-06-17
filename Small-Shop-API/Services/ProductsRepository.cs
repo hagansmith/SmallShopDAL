@@ -43,9 +43,11 @@ namespace Small_Shop_API.Services
                                                               ,[minimumStock]
 	                                                          ,Products.title as title
                                                               ,i.src as imageId
+                                                              ,l.Name as option3
                                                           FROM [Variants]
                                                           JOIN Products on Variants.productId = Products.id
                                                           JOIN Images i on products.id = i.productId
+                                                          LEFT JOIN Locations l on Variants.Id = l.VariantId
                                                           ORDER BY title");
                 return products.ToList();
             }
@@ -172,17 +174,25 @@ namespace Small_Shop_API.Services
             }
         }
 
-        public int PatchCount(Variant product)
+        public bool PatchCount(ProductCountDto product)
         {
             using (var db = new SqlConnection(_connectionString))
             {
+                var date = DateTime.Now;
                 db.Open();
                 var result = db.Execute(@"UPDATE [dbo].[Variants]
-                                             SET [inventoryQuantity] = @inventoryQuantity
+                                             SET [inventoryQuantity] = @inventory_quantity
                                                 ,[minimumStock] = @option2
                                          WHERE Id = @Id", product);
 
-                return result;
+                
+                    db.Execute(@"Insert Into dbo.Locations (name, available, updatedAt, variantId)
+                                               values 
+                                                  (@location
+                                                  ,@inventory_quantity
+                                                  ,@date
+                                                  ,@Id)", new {location=product.location, inventory_quantity=product.inventory_quantity, Id=product.Id, date });
+                return result == 1;
             }
         }
 
