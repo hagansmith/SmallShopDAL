@@ -34,7 +34,6 @@ namespace Small_Shop_API.Services
                                                               ,[sku]
                                                               ,variants.[createdAt]
                                                               ,variants.[updatedAt]
-                                                              
                                                               ,[InventoryQuantity]
                                                               ,[weight]
                                                               ,[requiresShipping]
@@ -67,7 +66,7 @@ namespace Small_Shop_API.Services
             {
                 db.Open();
                 var products = db.Query<InventoryDto>(@"
-                                            SELECT p.title, i.src image, v.sku, v.inventoryQuantity, v.Id as variantId
+                                            SELECT p.title, i.src image, v.sku, v.inventoryQuantity as inventory_quantity, v.Id as variantId
                                               FROM [dbo].[Products] p
                                               JOIN dbo.Variants v on p.id = v.productId
                                               JOIN dbo.Images i on p.id = i.productId
@@ -146,8 +145,8 @@ namespace Small_Shop_API.Services
             {
                 var date = DateTime.Now;
                 db.Open();
-                var result = db.Execute(@"UPDATE [dbo].[Reorder]
-                                             SET [dateRecieved] = @date
+                var result = db.Execute(@"UPDATE [dbo].[Reorders]
+                                             SET [dateReceived] = @date
                                                 ,[quantityReceived] = @count
                                            WHERE Id = @id", new {id, count, date});
                 return result;

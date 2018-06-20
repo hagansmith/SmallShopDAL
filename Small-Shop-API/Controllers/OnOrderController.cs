@@ -30,7 +30,7 @@ namespace Small_Shop_API.Controllers
 
         // PATCH api/onOrder/1234567890123/250
         [Authorize]
-        [Route("{id}/{count}"), HttpPatch]
+        [Route("{id}/{count}"), HttpPut]
         public HttpResponseMessage RecieveInventory(int id, int count)
         {
             var repo = new ProductsRepository();
