@@ -286,7 +286,7 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\OrdersRepository.cs" />
-    <Compile Include="Services\ProductParser.cs" />
+    <Compile Include="Services\Parser.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -298,6 +298,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\small-shop - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

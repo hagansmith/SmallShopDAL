@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Shopify_DB_WriterAPI.Products;
 using Small_Shop_API.Dto;
 using Small_Shop_API.Models;
 using Small_Shop_API.Services;
@@ -47,8 +46,8 @@ namespace Small_Shop_API.Controllers
         [Route, HttpPost]
         public HttpResponseMessage Post(object products)
         {
-            var parse = new ProductParser();
-            var prods = parse.Parse(products);
+            var parse = new Parser();
+            var prods = parse.ParseProducts(products);
             var postCount = 0;
 
             foreach (Product product in prods)

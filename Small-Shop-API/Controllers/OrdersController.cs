@@ -21,11 +21,20 @@ namespace Small_Shop_API.Controllers
 
         // POST api/orders
         [Route, HttpPost]
-        public HttpResponseMessage PostOrder(Order order)
+        public HttpResponseMessage PostOrder(Order orders)
         {
-            var repo = new OrdersRepository();
-            var result =  repo.Post(order);
-            return result == 1 ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not save order(s)");
+            var parse = new Parser();
+            var ords = parse.ParseOrders(orders);
+            var postCount = 0;
+
+            foreach (Order ord in ords)
+            {
+                var repo = new OrdersRepository();
+                var result = repo.Post(ord);
+                postCount += 1;
+            }
+
+            return ords.Count == postCount ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Could not save order(s)");
         }
     }
 }

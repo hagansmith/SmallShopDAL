@@ -185,12 +185,17 @@ namespace Small_Shop_API.Services
                                          WHERE Id = @Id", product);
 
                 
-                    db.Execute(@"Insert Into dbo.Locations (name, available, updatedAt, variantId)
-                                               values 
-                                                  (@location
-                                                  ,@inventory_quantity
-                                                  ,@date
-                                                  ,@Id)", new {location=product.location, inventory_quantity=product.inventory_quantity, Id=product.Id, date });
+                    db.Execute(@"if exists (select variantId from Locations where variantId = @Id)
+	                                update Locations
+		                            set Name=@location, Available=@inventory_quantity, UpdatedAt=@date
+		                            where variantId=@Id
+                                else
+	                                Insert Into dbo.Locations (name, available, updatedAt, variantId)
+                                    values (@location
+                                    ,@inventory_quantity
+                                    ,@date
+                                    ,@Id)", new {location=product.location, inventory_quantity=product.inventory_quantity, Id=product.Id, date });
+
                 return result == 1;
             }
         }
