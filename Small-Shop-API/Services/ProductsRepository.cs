@@ -43,6 +43,7 @@ namespace Small_Shop_API.Services
 	                                                          ,Products.title as title
                                                               ,i.src as imageId
                                                               ,l.Name as option3
+                                                              ,active
                                                           FROM [Variants]
                                                           JOIN Products on Variants.productId = Products.id
                                                           JOIN Images i on products.id = i.productId
@@ -54,19 +55,11 @@ namespace Small_Shop_API.Services
 
         public List<InventoryDto> GetLowStock()
         {
-            //var db = new ApplicationDbContext();
-            //var prods = db.Products.SqlQuery(@"SELECT p.title, i.src image, v.sku, v.inventoryQuantity, v.Id
-            //                                  FROM [dbo].[Products] p
-            //                                  JOIN dbo.Variants v on p.id = v.productId
-            //                                  JOIN dbo.Images i on p.id = i.productId
-            //                                 WHERE v.inventoryQuantity <= v.minimumStock and v.sku <> ''");
-            //return prods.ToList();
-
             using (var db = new SqlConnection(_connectionString))
             {
                 db.Open();
                 var products = db.Query<InventoryDto>(@"
-                                            SELECT p.title, i.src image, v.sku, v.inventoryQuantity as inventory_quantity, v.Id as variantId
+                                            SELECT p.title, i.src image, v.sku, v.inventoryQuantity as inventory_quantity, v.Id as variantId, v.Title as type
                                               FROM [dbo].[Products] p
                                               JOIN dbo.Variants v on p.id = v.productId
                                               JOIN dbo.Images i on p.id = i.productId
@@ -205,8 +198,9 @@ namespace Small_Shop_API.Services
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                  var productRowsAffected = connection.Execute(@" DELETE FROM[dbo].[Variants]
-                                                                        WHERE Id = @id", new { id });
+                  var productRowsAffected = connection.Execute(@" UPDATE [dbo].[Variants]
+                                                                    SET Active = 0
+                                                                    WHERE Id = @id", new { id });
 
                         
                   return productRowsAffected == 1;

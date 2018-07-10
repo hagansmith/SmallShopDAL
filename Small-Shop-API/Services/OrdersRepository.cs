@@ -17,7 +17,7 @@ namespace Small_Shop_API.Services
             return db.Set<Order>();
         }
 
-        public int Post(Order order)
+        public bool Post(Order order)
         {
             var db = new ApplicationDbContext();
             db.Orders.Add(order);
@@ -30,7 +30,8 @@ namespace Small_Shop_API.Services
                     variant.InventoryQuantity -= item.Quantity;
                 }
             }
-            return db.SaveChanges();
+            int result = db.SaveChanges();
+            return result == 1;
         }
     }
 }

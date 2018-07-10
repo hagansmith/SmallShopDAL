@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using Small_Shop_API.Models;
@@ -26,6 +27,8 @@ namespace Small_Shop_API.Services
 
         public List<Order> ParseOrders(object orders)
         {
+
+
             JObject parsedObject = JObject.Parse(orders.ToString());
             //get line items into list
             IList<JToken> ords = parsedObject["orders"].Children().ToList();
@@ -39,6 +42,24 @@ namespace Small_Shop_API.Services
             }
 
             return allTheOrders.ToList();
+        }
+
+
+        public List<Customer> ParseCustomers(object customers)
+        {
+            JObject parsedObject = JObject.Parse(customers.ToString());
+            //get line items into list
+            IList<JToken> custs = parsedObject["customers"].Children().ToList();
+            //Serialize results into objects
+            IList<Customer> allTheCustomers = new List<Customer>();
+            foreach (JToken cust in custs)
+            {
+                //ToObject helper method part of newtonsoft JToken
+                Customer order = cust.ToObject<Customer>();
+                allTheCustomers.Add(order);
+            }
+
+            return allTheCustomers.ToList();
         }
     }
 }

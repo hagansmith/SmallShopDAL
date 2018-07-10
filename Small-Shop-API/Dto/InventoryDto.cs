@@ -18,5 +18,6 @@ namespace Small_Shop_API.Dto
         [JsonProperty("inventory_quantity")] public int Inventory_Quantity { get; set; }
         [JsonProperty("reorderDate")] public DateTime ReorderDate { get; set; }
         [JsonProperty("orderedInventoryQty")] public int OrderedInventoryQty { get; set; }
+        [JsonProperty("type")] public string Type { get; set; }
     }
 }

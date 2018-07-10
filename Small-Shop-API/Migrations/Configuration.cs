@@ -1,6 +1,3 @@
-using Microsoft.AspNet.Identity.EntityFramework;
-using Small_Shop_API.Models;
-
 namespace Small_Shop_API.Migrations
 {
     using System;
@@ -17,16 +14,18 @@ namespace Small_Shop_API.Migrations
 
         protected override void Seed(Small_Shop_API.Models.ApplicationDbContext context)
         {
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            //  This method will be called after migrating to the latest version.
 
-            var user = new ApplicationUser
-            {
-                UserName = "asmith",
-                Email = "hagansmith@gmail.com",
-            };
-
-            userManager.CreateAsync(user, "qazwsx123").Wait();
-
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
         }
     }
 }

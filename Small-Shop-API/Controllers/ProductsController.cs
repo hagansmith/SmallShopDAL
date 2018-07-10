@@ -83,15 +83,15 @@ namespace Small_Shop_API.Controllers
                 : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to process request");
         }
 
-        // Delete api/products/id
+        // Update api/products/id
         [Authorize]
-        [Route("{id}"), HttpDelete]
+        [Route("{id}"), HttpPut]
         public HttpResponseMessage Delete(long id)
         {
             var repo = new ProductsRepository();
             var results = repo.Delete(id);
 
-            return results ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to delete");
+            return results ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to update");
         }
     }
 }
