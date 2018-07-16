@@ -83,13 +83,24 @@ namespace Small_Shop_API.Controllers
                 : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to process request");
         }
 
-        // Update api/products/id
+        // Update api/products/id/deactivate
         [Authorize]
-        [Route("{id}"), HttpPut]
-        public HttpResponseMessage Delete(long id)
+        [Route("{id}/deactivate"), HttpPut]
+        public HttpResponseMessage Deactivate(long id)
         {
             var repo = new ProductsRepository();
-            var results = repo.Delete(id);
+            var results = repo.Deactivate(id);
+
+            return results ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to update");
+        }
+
+        // Update api/products/id/activate
+        [Authorize]
+        [Route("{id}/activate"), HttpPut]
+        public HttpResponseMessage Activate(long id)
+        {
+            var repo = new ProductsRepository();
+            var results = repo.Activate(id);
 
             return results ? Request.CreateResponse(HttpStatusCode.OK) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to update");
         }

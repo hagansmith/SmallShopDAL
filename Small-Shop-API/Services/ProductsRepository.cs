@@ -193,7 +193,7 @@ namespace Small_Shop_API.Services
             }
         }
 
-        public bool Delete(long id)
+        public bool Deactivate(long id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -206,6 +206,21 @@ namespace Small_Shop_API.Services
                   return productRowsAffected == 1;
             }
             
+        }
+
+        public bool Activate(long id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var productRowsAffected = connection.Execute(@" UPDATE [dbo].[Variants]
+                                                                    SET Active = 1
+                                                                    WHERE Id = @id", new { id });
+
+
+                return productRowsAffected == 1;
+            }
+
         }
     }
 }
