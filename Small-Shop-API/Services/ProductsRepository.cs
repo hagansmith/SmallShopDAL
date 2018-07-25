@@ -63,7 +63,7 @@ namespace Small_Shop_API.Services
                                               FROM [dbo].[Products] p
                                               JOIN dbo.Variants v on p.id = v.productId
                                               JOIN dbo.Images i on p.id = i.productId
-                                              WHERE v.inventoryQuantity <= v.minimumStock and v.sku <> ''");
+                                              WHERE v.inventoryQuantity < v.minimumStock and v.active = 1 and v.sku <> ''");
                 return products.ToList();
             }
         }
@@ -173,8 +173,8 @@ namespace Small_Shop_API.Services
                 var date = DateTime.Now;
                 db.Open();
                 var result = db.Execute(@"UPDATE [dbo].[Variants]
-                                             SET [inventoryQuantity] = @inventory_quantity
-                                                ,[minimumStock] = @option2
+                                             SET [inventoryQuantity] = @inventoryQuantity
+                                                ,[minimumStock] = @minimumStock
                                          WHERE Id = @Id", product);
 
                 
